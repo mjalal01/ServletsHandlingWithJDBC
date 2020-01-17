@@ -12,9 +12,9 @@ package project.dto;
 public class Person {
     
     //Columns in the table
-    protected int personId;
+    protected Integer personId;
     protected String first_name;
-    protected String birth_name;
+    protected String last_name;
     protected String birth;
     protected String gender;
     protected String email;
@@ -24,11 +24,11 @@ public class Person {
     }
 
     
-    public int getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
 
@@ -40,12 +40,12 @@ public class Person {
         this.first_name = first_name;
     }
 
-    public String getBirth_name() {
-        return birth_name;
+    public String getLast_name() {
+        return last_name;
     }
 
-    public void setBirth_name(String birth_name) {
-        this.birth_name = birth_name;
+    public void setLast_name(String birth_name) {
+        this.last_name = birth_name;
     }
 
     public String getBirth() {
@@ -80,11 +80,15 @@ public class Person {
         this.phone = phone;
     }
     
+    public PersonPk createPk()
+    {
+            return new PersonPk(personId);
+    }
         @Override
     public String toString() {
         return "Person{" + "personId=" + personId + 
                 ", first_name=" + first_name + ", birth_name="
-                + birth_name + ", birth=" + birth + ", gender=" 
+                + last_name + ", birth=" + birth + ", gender=" 
                 + gender + ", email=" + email + ", phone=" + phone + '}';
     }
     

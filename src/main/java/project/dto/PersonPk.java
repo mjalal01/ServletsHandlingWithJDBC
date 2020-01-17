@@ -16,6 +16,10 @@ public class PersonPk {
     public PersonPk() {
     }
 
+    public PersonPk(final int personId) {
+        this.personId = personId;
+    }
+
     public int getPersonId() {
         return personId;
     }
