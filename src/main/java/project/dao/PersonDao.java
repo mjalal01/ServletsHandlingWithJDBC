@@ -6,6 +6,7 @@
 package project.dao;
 
 import java.sql.Connection;
+import java.util.ArrayList;
 import project.dto.Person;
 import project.dto.PersonPk;
 
@@ -19,13 +20,13 @@ public interface PersonDao {
     public PersonPk insert (Person dto) throws Exception;
     
     //update
-    public PersonPk update(PersonPk pk, Person dto) throws Exception;
+    public void update(PersonPk pk, Person dto) throws Exception;
     //delete
     
-    public PersonPk delete(PersonPk pk) throws Exception;
+    public void delete(PersonPk pk) throws Exception;
     //select
     
-    public Person[] select () throws Exception;
+    public ArrayList select () throws Exception;
     
     
     public Connection getUserConn();

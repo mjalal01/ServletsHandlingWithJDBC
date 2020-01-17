@@ -5,9 +5,10 @@
  */
 package rs.web;
 
+import java.util.ArrayList;
 import project.dto.Person;
+import project.dto.PersonPk;
 import project.jdbc.PersonDaoImpl;
-import project.jdbc.ResourceManager;
 
 /**
  *
@@ -20,16 +21,19 @@ public class Main {
         PersonDaoImpl p = new PersonDaoImpl();
         
         Person person = new Person();
+        PersonPk pk = new PersonPk();
         
-        person.setPersonId(1);
-        person.setFirst_name("Jalal");
-        person.setLast_name("Mekhtiyev");
-        person.setBirth("07.09.2000");
+        pk.setPersonId(2);
+        person.setFirst_name("");
+        person.setLast_name("");
+        person.setBirth("");
         person.setGender("M");
-        person.setPhone("+99450799");
-        person.setEmail("djalal@gmail.com");
+        person.setPhone("+99450457");
+        person.setEmail("sayyad@gmail.com");
         
-        p.insert(person);
+        p.delete(pk);
+        ArrayList<Person> persons = p.select();
+    //    p.insert(person);
         
     }
     
