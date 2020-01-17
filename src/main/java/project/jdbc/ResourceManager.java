@@ -1,4 +1,4 @@
-/*
+﻿/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -24,8 +24,8 @@ public class ResourceManager {
     
   /*  private static String JDBC_DRIVER="oracle.jdbc.driver.OracleDriver";
     private static String JDBC_URL="jdbc:oracle:thin:@localhost:1521:xe";
-    private static String JDBC_USER="jalal";
-    private  static String JDBC_PASS="jalal1228";
+    private static String JDBC_USER="";
+    private  static String JDBC_PASS="";
     private static int INITIAL_POOL_SIZE;
     private static int IDLE_TIME_POOL;
     private static Driver driver = null;

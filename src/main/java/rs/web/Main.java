@@ -24,9 +24,9 @@ public class Main {
         person.setPersonId(1);
         person.setFirst_name("Jalal");
         person.setLast_name("Mekhtiyev");
-        person.setBirth("01.01.2000");
+        person.setBirth("07.09.2000");
         person.setGender("M");
-        person.setPhone("+994507991228");
+        person.setPhone("+99450799");
         person.setEmail("djalal@gmail.com");
         
         p.insert(person);
