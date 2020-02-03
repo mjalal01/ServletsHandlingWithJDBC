@@ -17,7 +17,8 @@ import project.jdbc.PersonDaoImpl;
 public class Main {
     
     public static void main(String[] args) throws Exception {
-        
+       
+       
         PersonDaoImpl p = new PersonDaoImpl();
         
         Person person = new Person();
@@ -31,10 +32,11 @@ public class Main {
         person.setPhone("+99450457");
         person.setEmail("sayyad@gmail.com");
         
-        p.delete(pk);
-        ArrayList<Person> persons = p.select();
-    //    p.insert(person);
-        
+        System.out.println(pk.toString());
+       
+       
+       
+       
     }
     
 }
