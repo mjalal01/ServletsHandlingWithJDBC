@@ -17,7 +17,7 @@ import project.dto.PersonPk;
 public interface PersonDao {
     
     //insert
-    public PersonPk insert (Person dto) throws Exception;
+    public void insert (Person dto) throws Exception;
     
     //update
     public void update(PersonPk pk, Person dto) throws Exception;
@@ -28,6 +28,8 @@ public interface PersonDao {
     
     public ArrayList select () throws Exception;
     
+    //Take the last integer for generating new Primary Key
+    public Integer getLastId() throws Exception;
     
     public Connection getUserConn();
 

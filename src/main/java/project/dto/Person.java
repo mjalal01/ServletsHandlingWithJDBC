@@ -12,14 +12,17 @@ package project.dto;
 public class Person {
     
     //Columns in the table
-    protected Integer personId;
+    protected static Integer personId;
     protected String first_name;
     protected String last_name;
     protected String birth;
     protected String gender;
     protected String email;
     protected String phone;
+    protected String password;
 
+    
+    
     public Person() {
     }
 
@@ -78,6 +81,14 @@ public class Person {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
     
     public PersonPk createPk()

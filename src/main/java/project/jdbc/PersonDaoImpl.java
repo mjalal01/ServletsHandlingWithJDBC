@@ -17,6 +17,7 @@ import project.dto.PersonPk;
  */
 public class PersonDaoImpl implements PersonDao{
 
+
     private java.sql.Connection userConn;
 
     
@@ -25,6 +26,8 @@ public class PersonDaoImpl implements PersonDao{
             " (person_id,first_name,last_name,birth,gender,email,phone) "+
             "values(?,?,?,?,?,?,?)";
     
+    
+    //This is just for fun I will not use it
     protected final String SQL_UPDATE="update persons set first_name=?,"
             + "last_name=?,"
             + "birth=?,gender=?,email=?,phone=? where person_id=?";
@@ -41,7 +44,7 @@ public class PersonDaoImpl implements PersonDao{
     }
     
     @Override
-    public PersonPk insert(Person dto) throws Exception {
+    public void insert(Person dto) throws Exception {
         
         final boolean isConnSupplied = (userConn != null);
 
@@ -54,10 +57,13 @@ public class PersonDaoImpl implements PersonDao{
             String genereatedColumns[] = {"person_id"};
             stmt=conn.prepareStatement(SQL_INSERT, genereatedColumns);
             int index=1;
+            
             if (dto.getPersonId() != null) {
                 stmt.setInt(index++, dto.getPersonId().intValue());
             } else {
-                stmt.setNull(index++, java.sql.Types.INTEGER);
+                PersonDaoImpl  lastId = new PersonDaoImpl();
+                int id=lastId.getLastId();
+                stmt.setInt(index++, ++id);
             }
             stmt.setString(index++,dto.getFirst_name());
             stmt.setString(index++,dto.getLast_name());
@@ -65,6 +71,7 @@ public class PersonDaoImpl implements PersonDao{
             stmt.setString(index++,dto.getGender());
             stmt.setString(index++,dto.getEmail());
             stmt.setString(index++,dto.getPhone());
+            
             
             stmt.executeUpdate();
             
@@ -74,8 +81,6 @@ public class PersonDaoImpl implements PersonDao{
                 dto.setPersonId(new Integer(rs.getInt(1)));
             }
 
-            reset(dto);
-            return dto.createPk();
         }catch(Exception e){
             e.printStackTrace();
             throw new Exception("smth went wrong");
@@ -88,6 +93,45 @@ public class PersonDaoImpl implements PersonDao{
         
     }
 
+    
+    @Override
+    public Integer getLastId() throws Exception {
+        final boolean isConnSupplied = (userConn != null);
+
+        Connection conn = null;
+        PreparedStatement stmt = null;
+        ResultSet rs = null;
+        Integer result=null;
+        
+        try{
+            conn = isConnSupplied ? userConn : ResourceManager.getConnection();
+            String sql = "select person_id from persons where rownum<2"
+                    + " order by person_id desc";
+            
+            stmt=conn.prepareStatement(sql);
+            rs=stmt.executeQuery();
+            
+            while(rs.next()){
+                result=rs.getInt(1);
+            }
+            
+            if(result==null){
+                result=1;
+            }
+            
+        }catch(Exception e){
+            e.printStackTrace();
+        }finally{
+            ResourceManager.close(stmt);
+            if (!isConnSupplied) {
+                ResourceManager.close(conn);
+            }
+        }
+        return result;
+    }
+    
+    
+    
     @Override
     public void update(PersonPk pk, Person dto) throws Exception {
         final boolean isConnSupplied = (userConn != null);
@@ -122,6 +166,8 @@ public class PersonDaoImpl implements PersonDao{
         }
     }
 
+    
+    
     @Override
     public void delete(PersonPk pk) throws Exception {
         final boolean isConnSupplied = (userConn != null);

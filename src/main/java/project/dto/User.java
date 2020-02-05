@@ -12,19 +12,19 @@ package project.dto;
 public class User {
     
     //The columns of the table
-    protected int userId;
+    protected Integer userId;
     protected String login;
     protected String password;
-    protected int personId;
+    protected Integer personId;
     
     public User() {
     }
 
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
@@ -44,11 +44,11 @@ public class User {
         this.password = password;
     }
     
-    public int getPersonId() {
+    public Integer getPersonId() {
         return personId;
     }
 
-    public void setPersonId(int personId) {
+    public void setPersonId(Integer personId) {
         this.personId = personId;
     }
 

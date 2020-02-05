@@ -15,7 +15,7 @@ import project.dto.UserPk;
 public interface UserDao {
     
     //insert
-    public UserPk insert (User dto) throws Exception;
+    public void insert (User dto) throws Exception;
     
     //update 
     public UserPk update (UserPk pk, User dto) throws Exception;
@@ -26,4 +26,8 @@ public interface UserDao {
     //select
     public User[] select () throws Exception;
     
+    //for generating autoincremented pk
+    public Integer getLastId() throws Exception;
+    
+    public User dynamicWhere(User dto) throws Exception;
 }

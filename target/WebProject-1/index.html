@@ -30,10 +30,11 @@
 					<img src="images/img-01.png" alt="IMG">
 				</div>
 
-                            <form class="login100-form validate-form" action="/WEB-INF/Pages/Home.html" >
+                            <form class="login100-form validate-form" action="/WebProject/ControllerServlet" method="POST">
 				<!--	<span class="login100-form-title">
 						Member Login
 					</span>-->
+                                <input type="hidden" name="action" value="validateUser"/>
 
 					<div class="wrap-input100 validate-input" data-validate = "Valid email is required: ex@abc.xyz">
 						<input class="input100" type="text" name="email" placeholder="Email">
