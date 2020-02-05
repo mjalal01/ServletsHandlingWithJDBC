@@ -72,6 +72,7 @@ public class ControllerServlet extends HttpServlet{
             HttpSession session = req.getSession();
             session.setAttribute("login", dao.getLogin());
             session.setAttribute("pass", dao.getPassword());
+            
             req.getRequestDispatcher("/Pages/Home.html").forward(req, res);
         }else{
             req.getRequestDispatcher("/index.html").forward(req, res);
