@@ -90,11 +90,7 @@ public class Person {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    public PersonPk createPk()
-    {
-            return new PersonPk(personId);
-    }
+   
         @Override
     public String toString() {
         return "Person{" + "personId=" + personId + 

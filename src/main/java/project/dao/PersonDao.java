@@ -8,7 +8,6 @@ package project.dao;
 import java.sql.Connection;
 import java.util.ArrayList;
 import project.dto.Person;
-import project.dto.PersonPk;
 
 /**
  *
@@ -20,15 +19,16 @@ public interface PersonDao {
     public void insert (Person dto) throws Exception;
     
     //update
-    public void update(PersonPk pk, Person dto) throws Exception;
+    public void update( Person dto) throws Exception;
     //delete
     
-    public void delete(PersonPk pk) throws Exception;
+    public void delete(Person dto) throws Exception;
     //select
     
     public ArrayList select () throws Exception;
     
-    //Take the last integer for generating new Primary Key
+        //Method for finding the last pk int table
+    //For generating new ids
     public Integer getLastId() throws Exception;
     
     public Connection getUserConn();

@@ -27,7 +27,10 @@ public class ResourceManager {
     private static Driver driver = null;
     private static String JDBC_FILE_NAME = "Jdbc";
     
+    
+    
     public static Properties loadProperties(String file){
+        
         Properties prop = new Properties();
         ResourceBundle bundle = ResourceBundle.getBundle(file);
         Enumeration e = bundle.getKeys();
@@ -61,11 +64,15 @@ public class ResourceManager {
     return ds;
   }
 
+    
+    
   public static synchronized Connection getConnection()
           throws SQLException {
     return getDataSource().getConnection();
   }
 
+  
+  
   public static void close(Connection conn) {
     try {
       if (conn != null) {
@@ -76,6 +83,8 @@ public class ResourceManager {
     }
   }
 
+  
+  
   public static void close(PreparedStatement stmt) {
     try {
       if (stmt != null) {
@@ -86,6 +95,8 @@ public class ResourceManager {
     }
   }
 
+  
+  
   public static void close(ResultSet rs) {
     try {
       if (rs != null) {

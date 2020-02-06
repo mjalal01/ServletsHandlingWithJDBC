@@ -8,7 +8,6 @@ package project.jdbc;
 import java.sql.*;
 import project.dao.UserDao;
 import project.dto.User;
-import project.dto.UserPk;
 
 /**
  *
@@ -36,13 +35,20 @@ public class UserDaoImpl implements UserDao{
             
             conn = isConnSupplied ? userConn : ResourceManager.getConnection();
             
+            /*  Because in Oracle database, generated columns 
+            *   for the first column will get the rowid(Row key)
+            *   here is the sollution for it
+            *   Must mention that in mySQL there is no such thing :))
+            * */
             String genereatedColumns[] = {"user_id"};
             stmt=conn.prepareStatement(SQL_INERT,genereatedColumns);
             int index=1;
             
             if(dto.getUserId() != null){
+                
                 stmt.setInt(index++, dto.getUserId());
             }else{
+                
                UserDaoImpl lastId = new UserDaoImpl();
                int id=lastId.getLastId();
                stmt.setInt(index++, ++id);
@@ -129,24 +135,6 @@ public class UserDaoImpl implements UserDao{
             }
         }
         return result;
-    }
-    
-    
-
-    //The others are not needed
-    @Override
-    public UserPk update(UserPk pk, User dto) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public UserPk delete(UserPk pk) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public User[] select() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }

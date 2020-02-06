@@ -9,7 +9,6 @@ import java.sql.*;
 import java.util.ArrayList;
 import project.dao.PersonDao;
 import project.dto.Person;
-import project.dto.PersonPk;
 
 /**
  *
@@ -26,14 +25,11 @@ public class PersonDaoImpl implements PersonDao{
             " (person_id,first_name,last_name,birth,gender,email,phone) "+
             "values(?,?,?,?,?,?,?)";
     
-    
-    //This is just for fun I will not use it
+//This is just for fun I will not use it
     protected final String SQL_UPDATE="update persons set first_name=?,"
             + "last_name=?,"
             + "birth=?,gender=?,email=?,phone=? where person_id=?";
-    
     protected final String SQL_DELETE="delete from persons where person_id=?";
-    
     protected final String SQL_SELECT="select * from persons";
     
     
@@ -54,24 +50,32 @@ public class PersonDaoImpl implements PersonDao{
         
         try{
             conn = isConnSupplied ? userConn : ResourceManager.getConnection();
+            
+            /*  Because in Oracle database, generated columns 
+            *   for the first column will get the rowid(Row key)
+            *   here is the sollution for it
+            *   Must mention that in mySQL there is no such thing :))
+            * */
             String genereatedColumns[] = {"person_id"};
             stmt=conn.prepareStatement(SQL_INSERT, genereatedColumns);
             int index=1;
             
             if (dto.getPersonId() != null) {
+                
                 stmt.setInt(index++, dto.getPersonId().intValue());
             } else {
+                //Generating the primary key
                 PersonDaoImpl  lastId = new PersonDaoImpl();
                 int id=lastId.getLastId();
                 stmt.setInt(index++, ++id);
             }
+            
             stmt.setString(index++,dto.getFirst_name());
             stmt.setString(index++,dto.getLast_name());
             stmt.setString(index++,dto.getBirth());
             stmt.setString(index++,dto.getGender());
             stmt.setString(index++,dto.getEmail());
             stmt.setString(index++,dto.getPhone());
-            
             
             stmt.executeUpdate();
             
@@ -93,7 +97,8 @@ public class PersonDaoImpl implements PersonDao{
         
     }
 
-    
+    //Method for finding the last pk int table
+    //For generating new ids
     @Override
     public Integer getLastId() throws Exception {
         final boolean isConnSupplied = (userConn != null);
@@ -133,7 +138,7 @@ public class PersonDaoImpl implements PersonDao{
     
     
     @Override
-    public void update(PersonPk pk, Person dto) throws Exception {
+    public void update(Person dto) throws Exception {
         final boolean isConnSupplied = (userConn != null);
 
         Connection conn = null;
@@ -153,7 +158,7 @@ public class PersonDaoImpl implements PersonDao{
             stmt.setString(index++, dto.getPhone());
             
             //Setting The primary key of the object which should be updated
-            stmt.setInt(index, pk.getPersonId());
+            stmt.setInt(index, dto.getPersonId());
             stmt.executeUpdate();
         }catch(Exception e){
             e.printStackTrace();
@@ -169,7 +174,7 @@ public class PersonDaoImpl implements PersonDao{
     
     
     @Override
-    public void delete(PersonPk pk) throws Exception {
+    public void delete(Person dto) throws Exception {
         final boolean isConnSupplied = (userConn != null);
 
         Connection conn = null;
@@ -180,7 +185,7 @@ public class PersonDaoImpl implements PersonDao{
             
             stmt = conn.prepareStatement(SQL_DELETE);
              int index=1;
-            stmt.setInt(index , pk.getPersonId());
+            stmt.setInt(index , dto.getPersonId());
             stmt.executeUpdate();
             
         }catch(Exception e){
@@ -243,6 +248,7 @@ public class PersonDaoImpl implements PersonDao{
     }
     
     
-        protected void reset(Person dto) {
+    protected void reset(Person dto) 
+    {
     }
 }

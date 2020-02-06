@@ -6,7 +6,6 @@
 package project.dao;
 
 import project.dto.User;
-import project.dto.UserPk;
 
 /**
  *
@@ -17,17 +16,11 @@ public interface UserDao {
     //insert
     public void insert (User dto) throws Exception;
     
-    //update 
-    public UserPk update (UserPk pk, User dto) throws Exception;
-    
-    //delete
-    public UserPk delete (UserPk pk) throws Exception;
-    
-    //select
-    public User[] select () throws Exception;
-    
     //for generating autoincremented pk
     public Integer getLastId() throws Exception;
     
     public User dynamicWhere(User dto) throws Exception;
+    
+    //No need for implementing update delete or select 
+    //In personImplementation they were just for handling jdbc
 }
